@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 
 const user = new Schema({
     name: {
-        typeof: String,
+        type: String,
         min: 2,
         max: 35,
         default: 'Guest',

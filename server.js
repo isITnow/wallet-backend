@@ -4,6 +4,8 @@ import app from './app.js';
 const PORT = process.env.PORT || 4000;
 const DB_HOST = process.env.uriDb;
 
+mongoose.set('strictQuery', false);
+
 mongoose
     .connect(DB_HOST)
     .then(() => {

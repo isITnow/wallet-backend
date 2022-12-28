@@ -5,7 +5,6 @@ const register = async (req, res, next) => {
     const { name, email, password } = req.body;
 
     const user = await service.registerUser(name, email, password);
-    console.log('user: ', user);
 
     if (!user) {
         throw createError(409, 'Email in use');

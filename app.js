@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 
 import usersRouter from './routes/users.js';
 import categoriesRouter from './routes/categories.js';
+import transactionsRouter from './routes/transactions.js';
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 
 app.use('/api/users', usersRouter);
 app.use('/api/categories', categoriesRouter);
+app.use('/api/transactions', transactionsRouter);
 
 app.use((req, res) => {
     res.status(404).json({ message: 'Not found' });

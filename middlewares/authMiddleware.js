@@ -1,23 +1,25 @@
 import jwt from 'jsonwebtoken';
-import User from '../schemas/user';
-import { createError } from '../utils/createError';
+import User from '../schemas/user.js';
 
 export const authMiddleware = async (req, res, next) => {
     if (!req.headers['authorization']) {
-        throw createError(401, 'Please, provide Bearer token');
+        return res.status(401).json({
+            message: 'Please, provide Bearer token',
+        });
     }
 
     const [type, token] = req.headers['authorization'].split(' ');
 
     if (!type === 'Bearer') {
-        throw createError(
-            401,
-            'Invalid authorization type. "Bearer" is required.'
-        );
+        return res.status(401).json({
+            message: 'Invalid authorization type. "Bearer" is required.',
+        });
     }
 
     if (!token) {
-        throw createError(401, 'Please, provide token');
+        return res.status(401).json({
+            message: 'Please, provide Bearer token',
+        });
     }
 
     try {

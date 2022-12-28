@@ -17,6 +17,11 @@ const registerUser = async (name, email, password) => {
     return await User.create(newUser);
 };
 
+const loginUser = async (email, token) => {
+    return await User.findOneAndUpdate({ email }, { token }, { new: true });
+};
+
 export const service = {
     registerUser,
+    loginUser,
 };

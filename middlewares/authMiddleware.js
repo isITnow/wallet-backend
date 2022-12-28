@@ -27,14 +27,18 @@ export const authMiddleware = async (req, res, next) => {
         const checkUser = jwt.verify(token, SECRET);
 
         if (!checkUser) {
-            throw createError(401, 'Not authorized');
+            return res.status(401).json({
+                message: 'Not authorized',
+            });
         }
 
         const user = await User.findById(checkUser._id);
         const isSameToken = token === user.token;
 
         if (!user || !isSameToken) {
-            throw createError(401, 'Not authorized');
+            return res.status(401).json({
+                message: 'Not authorized',
+            });
         }
 
         req.token = token;

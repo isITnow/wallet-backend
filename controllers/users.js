@@ -52,7 +52,21 @@ const login = async (req, res, next) => {
     });
 };
 
+const logout = async (req, res, next) => {
+    const { _id } = req.user;
+
+    const user = await service.logoutUser(_id);
+
+    // if (!user) {
+    //     throw createError(401, 'Not authorized');
+    // }
+    res.status(204).json({
+        message: 'success',
+    });
+};
+
 export const controller = {
     register,
     login,
+    logout,
 };

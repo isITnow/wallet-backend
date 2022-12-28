@@ -65,7 +65,7 @@ const logout = async (req, res, next) => {
     });
 };
 
-export const controller = {
+export const userControllers = {
     register,
     login,
     logout,

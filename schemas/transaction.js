@@ -9,6 +9,9 @@ const transaction = new Schema(
         type: {
             type: Boolean,
         },
+        category: {
+            type: String,
+        },
         amount: {
             type: Number,
         },

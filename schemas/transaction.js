@@ -7,7 +7,8 @@ const transaction = new Schema(
             ref: 'User',
         },
         type: {
-            type: Boolean,
+            type: String,
+            enum: ['income', 'expense'],
         },
         category: {
             type: String,

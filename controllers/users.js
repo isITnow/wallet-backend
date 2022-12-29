@@ -1,12 +1,12 @@
 import User from '../schemas/user.js';
 import jwt from 'jsonwebtoken';
-import { service } from '../services/users.js';
+import { userServices } from '../services/users.js';
 import { createError } from '../utils/createError.js';
 
 const register = async (req, res, next) => {
     const { name, email, password } = req.body;
 
-    const user = await service.registerUser(name, email, password);
+    const user = await userServices.registerUser(name, email, password);
 
     if (!user) {
         throw createError(409, 'Email in use');
@@ -41,7 +41,7 @@ const login = async (req, res, next) => {
     const SECRET = process.env.JWT_SECRET;
     const token = jwt.sign(payload, SECRET);
 
-    const loggedInUser = await service.loginUser(email, token);
+    const loggedInUser = await userServices.loginUser(email, token);
 
     res.json({
         data: {
@@ -55,7 +55,7 @@ const login = async (req, res, next) => {
 const logout = async (req, res, next) => {
     const { _id } = req.user;
 
-    const user = await service.logoutUser(_id);
+    const user = await userServices.logoutUser(_id);
 
     // if (!user) {
     //     throw createError(401, 'Not authorized');

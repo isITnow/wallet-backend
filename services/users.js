@@ -30,7 +30,7 @@ const logoutUser = async id => {
     return await User.findByIdAndUpdate(id, { token: null }, { new: true });
 };
 
-export const service = {
+export const userServices = {
     registerUser,
     loginUser,
     logoutUser,

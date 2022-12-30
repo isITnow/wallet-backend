@@ -1,22 +1,23 @@
 import { transactionServices } from '../services/transactions.js';
 import Transaction from '../schemas/transaction.js';
 
-const findLastTransactionRecord = id => {
-    return Transaction.aggregate([
-        {
-            $match: {
-                owner: id,
-            },
-        },
-        {
-            $sort: {
-                createdAt: -1,
-            },
-        },
-        {
-            $limit: 1,
-        },
-    ]);
+const findLastTransactionRecord = owner => {
+    // return Transaction.aggregate([
+    //     {
+    //         $match: {
+    //             owner: id,
+    //         },
+    //     },
+    //     {
+    //         $sort: {
+    //             createdAt: -1,
+    //         },
+    //     },
+    //     {
+    //         $limit: 1,
+    //     },
+    // ]);
+    return Transaction.find({ owner }).sort({ createdAt: -1 }).limit(1);
 };
 
 const create = async (req, res) => {

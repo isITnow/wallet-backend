@@ -1,6 +1,6 @@
 import Transaction from '../schemas/transaction.js';
 
-const createTransaction = async (
+const create = async (
     { type, category, amount, date, actualBalance },
     owner
 ) => {
@@ -14,7 +14,7 @@ const createTransaction = async (
     });
 };
 
-const getTransactions = async ({ owner, limit, skip }) => {
+const getAll = async ({ owner, limit, skip }) => {
     const total = await Transaction.count({ owner });
     const allTransactions = await Transaction.find({ owner })
         .sort({
@@ -31,7 +31,10 @@ const getTransactions = async ({ owner, limit, skip }) => {
     return { allTransactions, total };
 };
 
+const getByDate = async id => {};
+
 export const transactionServices = {
-    createTransaction,
-    getTransactions,
+    create,
+    getAll,
+    getByDate,
 };

@@ -16,10 +16,14 @@ const transaction = new Schema(
         amount: {
             type: Number,
         },
-        date: {
-            type: Date,
-            default: Date.now,
-        },
+        // date: {
+        //     type: Date,
+        //     default: Date.now,
+        // },
+
+        month: { type: String },
+        year: { type: String },
+        date: { type: String },
         actualBalance: {
             type: Number,
         },

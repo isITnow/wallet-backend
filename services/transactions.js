@@ -1,16 +1,9 @@
 import Transaction from '../schemas/transaction.js';
 
-const create = async (
-    { type, category, amount, date, actualBalance },
-    owner
-) => {
+const create = async (data, owner) => {
     return Transaction.create({
-        type,
-        category,
-        amount,
-        date,
+        ...data,
         owner,
-        actualBalance,
     });
 };
 

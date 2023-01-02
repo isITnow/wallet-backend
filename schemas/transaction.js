@@ -9,12 +9,14 @@ const transaction = new Schema(
         type: {
             type: String,
             enum: ['income', 'expense'],
+            required: [true, 'transaction type is required'],
         },
         category: {
             type: String,
         },
         amount: {
             type: Number,
+            required: [true, 'amount is required'],
         },
         // date: {
         //     type: Date,
@@ -23,7 +25,10 @@ const transaction = new Schema(
 
         month: { type: String },
         year: { type: String },
-        date: { type: String },
+        date: {
+            type: String,
+            required: [true, 'transaction date is required'],
+        },
         actualBalance: {
             type: Number,
         },

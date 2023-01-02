@@ -1,5 +1,6 @@
 import { transactionServices } from '../services/transactions.js';
 import Transaction from '../schemas/transaction.js';
+import { createError } from '../utils/createError.js';
 
 const findLastTransactionRecord = owner => {
     // return Transaction.aggregate([
@@ -37,6 +38,33 @@ const create = async (req, res) => {
     });
 };
 
+const getAllTransactions = async (req, res) => {
+    const { _id } = req.user;
+    let { limit = 5, page = 1 } = req.query;
+
+    limit = parseInt(limit) > 10 ? 10 : parseInt(limit);
+    page = parseInt(page) < 1 ? 1 : parseInt(page);
+
+    let skip = (page - 1) * limit;
+    let filters = { skip, limit, owner: _id };
+
+    const { allTransactions, total } =
+        await transactionServices.getTransactions(filters);
+
+    // if (!allTransactions) {
+    //     createError(400, 'No transactions found');
+    // }
+
+    res.status(200).json({
+        data: {
+            total,
+            page,
+            limit,
+            allTransactions,
+        },
+    });
+};
+
 const createNewTransactionObject = (data, userId, balance) => {
     const { type, category = 'income', amount, date = new Date() } = data;
 
@@ -56,4 +84,5 @@ const createNewTransactionObject = (data, userId, balance) => {
 
 export const transactionsControllers = {
     create,
+    getAllTransactions,
 };

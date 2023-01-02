@@ -71,9 +71,11 @@ const getTransactionsByDate = async (req, res) => {
 };
 
 const createNewTransactionObject = (data, userId, balance) => {
-    const { type, category = 'income', amount, date = new Date() } = data;
+    const { type, category = 'income', amount, date } = data;
 
     let actualBalance = type === 'income' ? balance + amount : balance - amount;
+    const month = new Date(date).getMonth() + 1;
+    const year = new Date(date).getFullYear();
 
     let newTransaction = {
         owner: userId,
@@ -81,6 +83,8 @@ const createNewTransactionObject = (data, userId, balance) => {
         category,
         amount,
         date,
+        month,
+        year,
         actualBalance,
     };
 

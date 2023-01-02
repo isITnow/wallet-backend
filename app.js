@@ -3,6 +3,9 @@ import logger from 'morgan';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from './swagger.json' assert { type: "json" };
+
 import usersRouter from './routes/users.js';
 import categoriesRouter from './routes/categories.js';
 import transactionsRouter from './routes/transactions.js';
@@ -16,6 +19,12 @@ const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
 app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
+
+app.use(
+  '/api-docs',
+  swaggerUi.serve, 
+  swaggerUi.setup(swaggerDocument)
+);
 
 app.use('/api/users', usersRouter);
 app.use('/api/categories', categoriesRouter);

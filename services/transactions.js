@@ -24,7 +24,56 @@ const getAll = async ({ owner, limit, skip }) => {
     return { allTransactions, total };
 };
 
-const getByDate = async id => {};
+const getByDate = async (owner, month, year) => {
+    const transactions = await Transaction.aggregate([
+        {
+            $match: {
+                owner,
+                year,
+                month,
+            },
+        },
+    ]);
+
+    let incomeSum = null;
+    let expenseSum = null;
+
+    if (transactions.length) {
+        incomeSum = await aggregateSum(owner, month, year, 'income');
+        expenseSum = await aggregateSum(owner, month, year, 'expense');
+    }
+
+    return {
+        transactions,
+        incomeSum,
+        expenseSum,
+    };
+};
+
+const aggregateSum = (owner, month, year, type) => {
+    return Transaction.aggregate([
+        {
+            $match: {
+                owner,
+                year,
+                month,
+                type,
+            },
+        },
+        {
+            $group: {
+                _id: null,
+                total: { $sum: '$amount' },
+            },
+        },
+        {
+            $project: {
+                _id: 0,
+                total: '$total',
+            },
+        },
+    ]);
+};
 
 module.exports = {
     create,

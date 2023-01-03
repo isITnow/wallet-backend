@@ -2,25 +2,6 @@ const { create, getAll, getByDate } = require('../services/transactions.js');
 const Transaction = require('../schemas/transaction.js');
 // const createError = require('../utils/createError.js');
 
-const findLastTransactionRecord = owner => {
-    // return Transaction.aggregate([
-    //     {
-    //         $match: {
-    //             owner: id,
-    //         },
-    //     },
-    //     {
-    //         $sort: {
-    //             createdAt: -1,
-    //         },
-    //     },
-    //     {
-    //         $limit: 1,
-    //     },
-    // ]);
-    return Transaction.find({ owner }).sort({ createdAt: -1 }).limit(1);
-};
-
 const createTransaction = async (req, res) => {
     const { _id } = req.user;
     const lastRecord = await findLastTransactionRecord(_id);
@@ -28,6 +9,7 @@ const createTransaction = async (req, res) => {
 
     const newTransaction = createNewTransactionObject(req.body, _id, balance);
     const operation = await create(newTransaction, _id);
+
     res.status(201).json({
         data: {
             operation,
@@ -47,10 +29,6 @@ const getAllTransactions = async (req, res) => {
 
     const { allTransactions, total } = await getAll(filters);
 
-    // if (!allTransactions) {
-    //     createError(400, 'No transactions found');
-    // }
-
     res.status(200).json({
         data: {
             total,
@@ -64,14 +42,25 @@ const getAllTransactions = async (req, res) => {
 const getTransactionsByDate = async (req, res) => {
     const { _id } = req.user;
     const { month, year } = req.params;
+    const transactions = await getByDate(_id, month, year);
 
-    const transactions = await getByDate(_id);
+    res.status(200).json({
+        data: {
+            ...transactions,
+        },
+    });
+};
+
+const findLastTransactionRecord = owner => {
+    return Transaction.find({ owner }).sort({ createdAt: -1 }).limit(1);
 };
 
 const createNewTransactionObject = (data, userId, balance) => {
     const { type, category = 'income', amount, date } = data;
 
     let actualBalance = type === 'income' ? balance + amount : balance - amount;
+    actualBalance.toFixed(2);
+
     const month = new Date(date).getMonth() + 1;
     const year = new Date(date).getFullYear();
 

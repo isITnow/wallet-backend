@@ -1,10 +1,10 @@
-import express from 'express';
-import { categoriesControllers } from '../controllers/categories.js';
-import { authMiddleware } from '../middlewares/authMiddleware.js';
+const express = require('express');
+const { getCategories } = require('../controllers/categories.js');
+const authMiddleware = require('../middlewares/authMiddleware.js');
 
 const router = express.Router();
 
 router.use(authMiddleware);
-router.get('/', categoriesControllers.getCategories);
+router.get('/', getCategories);
 
-export default router;
+module.exports = { categoriesRouter: router };

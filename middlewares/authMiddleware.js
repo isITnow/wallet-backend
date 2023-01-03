@@ -1,7 +1,7 @@
-import jwt from 'jsonwebtoken';
-import User from '../schemas/user.js';
+const jwt = require('jsonwebtoken');
+const User = require('../schemas/user.js');
 
-export const authMiddleware = async (req, res, next) => {
+const authMiddleware = async (req, res, next) => {
     if (!req.headers['authorization']) {
         return res.status(401).json({
             message: 'Please, provide Bearer token',
@@ -49,3 +49,5 @@ export const authMiddleware = async (req, res, next) => {
         next(e);
     }
 };
+
+module.exports = authMiddleware;

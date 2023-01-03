@@ -51,4 +51,4 @@ const categories = [
     },
 ];
 
-export default categories;
+module.exports = categories;

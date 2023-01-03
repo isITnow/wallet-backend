@@ -1,6 +1,6 @@
-import { transactionServices } from '../services/transactions.js';
-import Transaction from '../schemas/transaction.js';
-import { createError } from '../utils/createError.js';
+const { create, getAll, getByDate } = require('../services/transactions.js');
+const Transaction = require('../schemas/transaction.js');
+// const createError = require('../utils/createError.js');
 
 const findLastTransactionRecord = owner => {
     // return Transaction.aggregate([
@@ -27,7 +27,7 @@ const createTransaction = async (req, res) => {
     const balance = lastRecord[0]?.actualBalance || 0;
 
     const newTransaction = createNewTransactionObject(req.body, _id, balance);
-    const operation = await transactionServices.create(newTransaction, _id);
+    const operation = await create(newTransaction, _id);
     res.status(201).json({
         data: {
             operation,
@@ -45,9 +45,7 @@ const getAllTransactions = async (req, res) => {
     let skip = (page - 1) * limit;
     let filters = { skip, limit, owner: _id };
 
-    const { allTransactions, total } = await transactionServices.getAll(
-        filters
-    );
+    const { allTransactions, total } = await getAll(filters);
 
     // if (!allTransactions) {
     //     createError(400, 'No transactions found');
@@ -67,7 +65,7 @@ const getTransactionsByDate = async (req, res) => {
     const { _id } = req.user;
     const { month, year } = req.params;
 
-    const transactions = await transactionServices.getByDate(_id);
+    const transactions = await getByDate(_id);
 };
 
 const createNewTransactionObject = (data, userId, balance) => {
@@ -91,7 +89,7 @@ const createNewTransactionObject = (data, userId, balance) => {
     return newTransaction;
 };
 
-export const transactionsControllers = {
+module.exports = {
     createTransaction,
     getAllTransactions,
     getTransactionsByDate,

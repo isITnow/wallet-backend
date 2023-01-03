@@ -1,16 +1,15 @@
-import express from 'express';
-import logger from 'morgan';
-import cors from 'cors';
-import dotenv from 'dotenv';
+const express = require('express');
+const logger = require('morgan');
+const cors = require('cors');
 
-import swaggerUi from 'swagger-ui-express';
-import swaggerDocument from './swagger.json' assert { type: 'json' };
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 
-import usersRouter from './routes/users.js';
-import categoriesRouter from './routes/categories.js';
-import transactionsRouter from './routes/transactions.js';
+const { usersRouter } = require('./routes/users.js');
+const { categoriesRouter } = require('./routes/categories.js');
+const { transactionsRouter } = require('./routes/transactions.js');
 
-dotenv.config();
+require('dotenv').config();
 
 const app = express();
 
@@ -35,4 +34,4 @@ app.use((err, req, res, next) => {
     res.status(status).json({ message: message });
 });
 
-export default app;
+module.exports = app;

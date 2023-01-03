@@ -1,4 +1,4 @@
-import Transaction from '../schemas/transaction.js';
+const Transaction = require('../schemas/transaction.js');
 
 const create = async (data, owner) => {
     return Transaction.create({
@@ -26,7 +26,7 @@ const getAll = async ({ owner, limit, skip }) => {
 
 const getByDate = async id => {};
 
-export const transactionServices = {
+module.exports = {
     create,
     getAll,
     getByDate,

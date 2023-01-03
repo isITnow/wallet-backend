@@ -340,7 +340,11 @@
                 "tags": ["transactions"],
                 "summary": "GET all user transactions",
                 "parameters": [],
-                "security": [{ "Bearer": [] }],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -781,120 +785,120 @@
                             "totalBalance": 10000
                         }
                     }
-                },
-                "User Response": {
-                    "type": "object",
-                    "properties": {
-                        "status": {
-                            "type": "string",
-                            "description": "responses status",
-                            "example": "success"
-                        },
-                        "code": {
-                            "type": "string",
-                            "description": "responses code",
-                            "example": "200"
-                        },
-                        "data": {
-                            "type": "object",
-                            "description": "responses data",
-                            "example": {
-                                "user": {
-                                    "name": "Johny Walker",
-                                    "email": "user.email@mail.com",
-                                    "subscription": "pro"
-                                }
+                }
+            },
+            "User Response": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "description": "responses status",
+                        "example": "success"
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "responses code",
+                        "example": "200"
+                    },
+                    "data": {
+                        "type": "object",
+                        "description": "responses data",
+                        "example": {
+                            "user": {
+                                "name": "Johny Walker",
+                                "email": "user.email@mail.com",
+                                "subscription": "pro"
                             }
                         }
                     }
-                },
-                "Error 400": {
-                    "description": "Bad Request",
-                    "type": "object",
-                    "properties": {
-                        "status": {
-                            "type": "string",
-                            "description": "responses status",
-                            "example": "error"
-                        },
-                        "code": {
-                            "type": "string",
-                            "description": "responses code",
-                            "example": "400"
-                        },
-                        "message": {
-                            "type": "string",
-                            "description": "responses message",
-                            "example": "Bad Request"
-                        }
+                }
+            },
+            "Error 400": {
+                "description": "Bad Request",
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "description": "responses status",
+                        "example": "error"
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "responses code",
+                        "example": "400"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "responses message",
+                        "example": "Bad Request"
                     }
-                },
-                "Error 403": {
-                    "description": "Forbidden",
-                    "type": "object",
-                    "properties": {
-                        "status": {
-                            "type": "string",
-                            "description": "responses status",
-                            "example": "error"
-                        },
-                        "code": {
-                            "type": "string",
-                            "description": "responses code",
-                            "example": "403"
-                        },
-                        "message": {
-                            "type": "string",
-                            "description": "responses message",
-                            "example": "Forbidden"
-                        }
+                }
+            },
+            "Error 403": {
+                "description": "Forbidden",
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "description": "responses status",
+                        "example": "error"
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "responses code",
+                        "example": "403"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "responses message",
+                        "example": "Forbidden"
                     }
-                },
-                "Error 404": {
-                    "description": "Not Found",
-                    "type": "object",
-                    "properties": {
-                        "status": {
-                            "type": "string",
-                            "description": "responses status",
-                            "example": "error"
-                        },
-                        "code": {
-                            "type": "string",
-                            "description": "responses code",
-                            "example": "404"
-                        },
-                        "message": {
-                            "type": "string",
-                            "description": "responses message",
-                            "example": "Not Found"
-                        }
+                }
+            },
+            "Error 404": {
+                "description": "Not Found",
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "description": "responses status",
+                        "example": "error"
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "responses code",
+                        "example": "404"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "responses message",
+                        "example": "Not Found"
                     }
-                },
-                "Error 500": {
-                    "description": "Iternal Server Error",
-                    "type": "object",
-                    "properties": {
-                        "status": {
-                            "type": "string",
-                            "description": "responses status",
-                            "example": "fail"
-                        },
-                        "code": {
-                            "type": "string",
-                            "description": "responses code",
-                            "example": "500"
-                        },
-                        "message": {
-                            "type": "string",
-                            "description": "responses message",
-                            "example": "User password is required"
-                        },
-                        "data": {
-                            "type": "string",
-                            "description": "responses data",
-                            "example": "Internal Server Found"
-                        }
+                }
+            },
+            "Error 500": {
+                "description": "Iternal Server Error",
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "description": "responses status",
+                        "example": "fail"
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "responses code",
+                        "example": "500"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "responses message",
+                        "example": "User password is required"
+                    },
+                    "data": {
+                        "type": "string",
+                        "description": "responses data",
+                        "example": "Internal Server Found"
                     }
                 }
             }

@@ -1,16 +1,20 @@
-import express from 'express';
-import { userControllers } from '../controllers/users.js';
-import { asyncWrapper } from '../utils/asyncWrapper.js';
-import { validate } from '../middlewares/validationMiddleware.js';
-import { authMiddleware } from '../middlewares/authMiddleware.js';
+const express = require('express');
+const {
+    registerUser,
+    loginUser,
+    logoutUser,
+} = require('../controllers/users.js');
+const asyncWrapper = require('../utils/asyncWrapper.js');
+const { addUserValidation } = require('../middlewares/validationMiddleware.js');
+const authMiddleware = require('../middlewares/authMiddleware.js');
 
 const router = express.Router();
 
-router.post('/register', validate.user, asyncWrapper(userControllers.register));
-router.post('/login', validate.user, asyncWrapper(userControllers.login));
+router.post('/register', addUserValidation, asyncWrapper(registerUser));
+router.post('/login', addUserValidation, asyncWrapper(loginUser));
 
 router.use(authMiddleware);
 
-router.post('/logout', asyncWrapper(userControllers.logout));
+router.post('/logout', asyncWrapper(logoutUser));
 
-export default router;
+module.exports = { usersRouter: router };

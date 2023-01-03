@@ -1,4 +1,4 @@
-import categories from '../assets/categories.js';
+const categories = require('../assets/categories.js');
 
 const getCategories = (req, res, next) => {
     res.json({
@@ -6,6 +6,6 @@ const getCategories = (req, res, next) => {
     });
 };
 
-export const categoriesControllers = {
+module.exports = {
     getCategories,
 };

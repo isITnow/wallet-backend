@@ -1,12 +1,12 @@
-import User from '../schemas/user.js';
-import jwt from 'jsonwebtoken';
-import { userServices } from '../services/users.js';
-import { createError } from '../utils/createError.js';
+const User = require('../schemas/user.js');
+const jwt = require('jsonwebtoken');
+const { register, login, logout } = require('../services/users.js');
+const createError = require('../utils/createError.js');
 
-const register = async (req, res, next) => {
+const registerUser = async (req, res, next) => {
     const { name, email, password } = req.body;
 
-    const user = await userServices.registerUser(name, email, password);
+    const user = await register(name, email, password);
 
     if (!user) {
         throw createError(409, 'Email in use');
@@ -20,7 +20,7 @@ const register = async (req, res, next) => {
     });
 };
 
-const login = async (req, res, next) => {
+const loginUser = async (req, res, next) => {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email }, 'password');
@@ -41,7 +41,7 @@ const login = async (req, res, next) => {
     const SECRET = process.env.JWT_SECRET;
     const token = jwt.sign(payload, SECRET);
 
-    const loggedInUser = await userServices.loginUser(email, token);
+    const loggedInUser = await login(email, token);
 
     res.json({
         data: {
@@ -52,10 +52,10 @@ const login = async (req, res, next) => {
     });
 };
 
-const logout = async (req, res, next) => {
+const logoutUser = async (req, res, next) => {
     const { _id } = req.user;
 
-    const user = await userServices.logoutUser(_id);
+    const user = await logout(_id);
 
     // if (!user) {
     //     throw createError(401, 'Not authorized');
@@ -65,8 +65,8 @@ const logout = async (req, res, next) => {
     });
 };
 
-export const userControllers = {
-    register,
-    login,
-    logout,
+module.exports = {
+    registerUser,
+    loginUser,
+    logoutUser,
 };

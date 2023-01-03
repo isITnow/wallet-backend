@@ -1,6 +1,6 @@
-import User from '../schemas/user.js';
+const User = require('../schemas/user.js');
 
-const registerUser = async (name, email, password) => {
+const register = async (name, email, password) => {
     const user = await User.findOne({ email });
 
     if (user) {
@@ -17,11 +17,11 @@ const registerUser = async (name, email, password) => {
     return await User.create(newUser);
 };
 
-const loginUser = async (email, token) => {
+const login = async (email, token) => {
     return await User.findOneAndUpdate({ email }, { token }, { new: true });
 };
 
-const logoutUser = async id => {
+const logout = async id => {
     // const user = await User.findById(id);
 
     // if (!user) {
@@ -30,8 +30,8 @@ const logoutUser = async id => {
     return await User.findByIdAndUpdate(id, { token: null }, { new: true });
 };
 
-export const userServices = {
-    registerUser,
-    loginUser,
-    logoutUser,
+module.exports = {
+    register,
+    login,
+    logout,
 };

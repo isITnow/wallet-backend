@@ -6,10 +6,6 @@ import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './swagger.json' assert { type: 'json' };
 
-// const swaggerDocument = await import('./swagger.json', {
-//     assert: { type: 'json' },
-// });
-
 import usersRouter from './routes/users.js';
 import categoriesRouter from './routes/categories.js';
 import transactionsRouter from './routes/transactions.js';

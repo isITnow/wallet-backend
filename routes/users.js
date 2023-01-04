@@ -5,13 +5,16 @@ const {
     logoutUser,
 } = require('../controllers/users.js');
 const asyncWrapper = require('../utils/asyncWrapper.js');
-const { addUserValidation } = require('../middlewares/validationMiddleware.js');
+const {
+    addUserValidation,
+    loginUserValidation,
+} = require('../middlewares/validationMiddleware.js');
 const authMiddleware = require('../middlewares/authMiddleware.js');
 
 const router = express.Router();
 
 router.post('/register', addUserValidation, asyncWrapper(registerUser));
-router.post('/login', addUserValidation, asyncWrapper(loginUser));
+router.post('/login', loginUserValidation, asyncWrapper(loginUser));
 
 router.use(authMiddleware);
 

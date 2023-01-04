@@ -25,14 +25,19 @@ const getAll = async ({ owner, limit, skip }) => {
 };
 
 const getByDate = async (owner, from, to) => {
-    const transactions = await Transaction.aggregate([
-        {
-            $match: {
-                owner,
-                date: { $gte: from, $lt: to },
-            },
-        },
-    ]);
+    // const transactions = await Transaction.aggregate([
+    //     {
+    //         $match: {
+    //             owner,
+    //             date: { $gte: from, $lt: to },
+    //         },
+    //     },
+    // ]);
+
+    const transactions = await Transaction.find({
+        owner,
+        date: { $gte: from, $lt: to },
+    });
 
     let incomeSum = null;
     let expenseSum = null;

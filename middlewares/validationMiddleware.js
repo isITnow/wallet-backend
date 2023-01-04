@@ -23,4 +23,23 @@ module.exports = {
         }
         next();
     },
+
+    addTransactionValidation: (req, res, next) => {
+        const schema = Joi.object({
+            // TODO: add date validation
+
+            // date: Joi.date().format('YYYY-MM-DD').required(),
+            amount: Joi.number().required(),
+            type: Joi.any().valid('income', 'expense').required(),
+            category: Joi.string(),
+        });
+        const validationResult = schema.validate(req.body);
+
+        if (validationResult.error) {
+            return res
+                .status(400)
+                .json({ message: validationResult.error.details });
+        }
+        next();
+    },
 };

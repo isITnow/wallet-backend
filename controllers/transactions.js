@@ -4,8 +4,10 @@ const Transaction = require('../schemas/transaction.js');
 
 const createTransaction = async (req, res) => {
     const { _id } = req.user;
-    const lastRecord = await findLastTransactionRecord(_id);
-    const balance = lastRecord[0]?.actualBalance || 0;
+    // const lastRecord = await findLastTransactionRecord(_id);
+    // const balance = lastRecord[0]?.actualBalance || 0;
+
+    const balance = await getActualBalance(_id);
 
     const newTransaction = createNewTransactionObject(req.body, _id, balance);
     const operation = await create(newTransaction, _id);
@@ -51,15 +53,25 @@ const getTransactionsByDate = async (req, res) => {
     });
 };
 
-const findLastTransactionRecord = owner => {
-    return Transaction.find({ owner }).sort({ createdAt: -1 }).limit(1);
+// const findLastTransactionRecord = owner => {
+//     return Transaction.find({ owner }).sort({ createdAt: -1 }).limit(1);
+// };
+
+const getActualBalance = async owner => {
+    const lastRecord = await Transaction.find({ owner })
+        .sort({ createdAt: -1 })
+        .limit(1);
+    const balance = lastRecord[0]?.actualBalance || 0;
+    return balance;
 };
 
 const createNewTransactionObject = (data, userId, balance) => {
     const { type, category = 'income', amount, date } = data;
 
-    let actualBalance = type === 'income' ? balance + amount : balance - amount;
-    actualBalance.toFixed(2);
+    let actualBalance =
+        type === 'income'
+            ? (balance + amount).toFixed(2)
+            : (balance - amount).toFixed(2);
 
     const month = new Date(date).getMonth() + 1;
     const year = new Date(date).getFullYear();

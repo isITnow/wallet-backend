@@ -3,7 +3,7 @@ const Joi = require('joi');
 module.exports = {
     addUserValidation: (req, res, next) => {
         const schema = Joi.object({
-            name: Joi.string().alphanum().min(2).max(24).required(),
+            name: Joi.string().min(2).max(24).required(),
             email: Joi.string()
                 .email({
                     minDomainSegments: 2,

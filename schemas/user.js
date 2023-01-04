@@ -6,7 +6,8 @@ const user = new Schema(
         name: {
             type: String,
             min: 2,
-            max: 35,
+            max: 24,
+            required: [true, 'User name is required'],
             default: 'Guest',
         },
         email: {

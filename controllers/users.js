@@ -65,8 +65,18 @@ const logoutUser = async (req, res, next) => {
     });
 };
 
+const currentUser = async (req, res) => {
+    res.json({
+        user: {
+            name: req.user.name,
+            email: req.user.email,
+        },
+    });
+};
+
 module.exports = {
     registerUser,
     loginUser,
     logoutUser,
+    currentUser,
 };

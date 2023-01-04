@@ -3,6 +3,7 @@ const {
     registerUser,
     loginUser,
     logoutUser,
+    currentUser,
 } = require('../controllers/users.js');
 const asyncWrapper = require('../utils/asyncWrapper.js');
 const {
@@ -19,5 +20,6 @@ router.post('/login', loginUserValidation, asyncWrapper(loginUser));
 router.use(authMiddleware);
 
 router.post('/logout', asyncWrapper(logoutUser));
+router.get('/current', asyncWrapper(currentUser));
 
 module.exports = { usersRouter: router };

@@ -2,6 +2,7 @@ const User = require('../schemas/user.js');
 const jwt = require('jsonwebtoken');
 const { register, login, logout } = require('../services/users.js');
 const createError = require('../utils/createError.js');
+const getActualBalance = require('../utils/getUserActualBalance.js');
 
 const registerUser = async (req, res, next) => {
     const { name, email, password } = req.body;
@@ -66,10 +67,12 @@ const logoutUser = async (req, res, next) => {
 };
 
 const currentUser = async (req, res) => {
+    const balance = await getActualBalance(req.user._id);
     res.json({
         user: {
             name: req.user.name,
             email: req.user.email,
+            balance,
         },
     });
 };

@@ -46,6 +46,7 @@ const loginUser = async (req, res, next) => {
 
     res.json({
         data: {
+            id: loggedInUser._id,
             name: loggedInUser.name,
             email: loggedInUser.email,
             token: token,
@@ -70,6 +71,7 @@ const currentUser = async (req, res) => {
     const balance = await getActualBalance(req.user._id);
     res.json({
         user: {
+            id: req.user._id,
             name: req.user.name,
             email: req.user.email,
             balance,

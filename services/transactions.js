@@ -39,8 +39,13 @@ const getByDate = async (owner, month, year) => {
     let expenseSum = null;
 
     if (transactions.length) {
-        incomeSum = await aggregateSum(owner, month, year, 'income');
-        expenseSum = await aggregateSum(owner, month, year, 'expense');
+        const getSumNumber = arr => {
+            return arr[0]?.total.toFixed(2) || 0;
+        };
+        income = await aggregateSum(owner, month, year, 'income');
+        incomeSum = getSumNumber(income);
+        expense = await aggregateSum(owner, month, year, 'expense');
+        expenseSum = getSumNumber(expense);
     }
 
     return {

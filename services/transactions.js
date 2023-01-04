@@ -24,13 +24,12 @@ const getAll = async ({ owner, limit, skip }) => {
     return { allTransactions, total };
 };
 
-const getByDate = async (owner, month, year) => {
+const getByDate = async (owner, from, to) => {
     const transactions = await Transaction.aggregate([
         {
             $match: {
                 owner,
-                year,
-                month,
+                date: { $gte: from, $lt: to },
             },
         },
     ]);
@@ -42,9 +41,9 @@ const getByDate = async (owner, month, year) => {
         const getSumNumber = arr => {
             return arr[0]?.total.toFixed(2) || 0;
         };
-        income = await aggregateSum(owner, month, year, 'income');
+        income = await aggregateSum(owner, from, to, 'income');
         incomeSum = getSumNumber(income);
-        expense = await aggregateSum(owner, month, year, 'expense');
+        expense = await aggregateSum(owner, from, to, 'expense');
         expenseSum = getSumNumber(expense);
     }
 
@@ -55,13 +54,12 @@ const getByDate = async (owner, month, year) => {
     };
 };
 
-const aggregateSum = (owner, month, year, type) => {
+const aggregateSum = (owner, from, to, type) => {
     return Transaction.aggregate([
         {
             $match: {
                 owner,
-                year,
-                month,
+                date: { $gte: from, $lt: to },
                 type,
             },
         },

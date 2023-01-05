@@ -2,8 +2,8 @@
     "openapi": "3.0.0",
     "info": {
         "title": "WalletAPI",
-        "description": "Final project",
-        "version": "1.0.0"
+        "description": "This is the Fullstack BC24 group's final project, based on the OpenAPI 3.0 specification.",
+        "version": "1.0.1"
     },
     "consumens": ["application/json"],
     "produces": ["application/json"],
@@ -39,7 +39,7 @@
                         "application/json": {
                             "schema": {
                                 "type": "object",
-                                "required": ["email", "password"],
+                                "required": ["email", "password", "name"],
                                 "properties": {
                                     "email": {
                                         "type": "string",
@@ -50,6 +50,11 @@
                                         "type": "string",
                                         "example": "qwerty123",
                                         "description": "Password"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Johny Walker",
+                                        "description": "User name"
                                     }
                                 }
                             }
@@ -64,21 +69,12 @@
                                 "schema": {
                                     "type": "object",
                                     "properties": {
-                                        "status": {
-                                            "type": "string",
-                                            "description": "responses status",
-                                            "example": "success"
-                                        },
-                                        "code": {
-                                            "type": "string",
-                                            "description": "responses code",
-                                            "example": "201"
-                                        },
                                         "data": {
                                             "type": "object",
                                             "description": "responses data",
                                             "example": {
                                                 "id": "60d9f35e8a52085120891b19",
+                                                "name": "Johny Walker",
                                                 "email": "example@email.com"
                                             }
                                         }
@@ -97,16 +93,6 @@
                             }
                         }
                     },
-                    "403": {
-                        "description": "Forbidden",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Error 403"
-                                }
-                            }
-                        }
-                    },
                     "409": {
                         "description": "Conflict",
                         "content": {
@@ -114,16 +100,6 @@
                                 "schema": {
                                     "type": "object",
                                     "properties": {
-                                        "status": {
-                                            "type": "string",
-                                            "description": "status",
-                                            "example": "error"
-                                        },
-                                        "code": {
-                                            "type": "string",
-                                            "description": "code",
-                                            "example": "409"
-                                        },
                                         "message": {
                                             "type": "string",
                                             "description": "conflict",
@@ -162,12 +138,12 @@
                                     "password": {
                                         "type": "string",
                                         "example": "qwerty123",
-                                        "description": "Password"
+                                        "description": "password"
                                     },
                                     "email": {
                                         "type": "string",
                                         "example": "email@example.com",
-                                        "description": "Email"
+                                        "description": "email"
                                     }
                                 }
                             }
@@ -182,21 +158,14 @@
                                 "schema": {
                                     "type": "object",
                                     "properties": {
-                                        "status": {
-                                            "type": "string",
-                                            "description": "responses status",
-                                            "example": "success"
-                                        },
-                                        "code": {
-                                            "type": "string",
-                                            "description": "responses code",
-                                            "example": "200"
-                                        },
                                         "data": {
                                             "type": "object",
                                             "description": "responses data",
                                             "example": {
-                                                "token": "User token after success login"
+                                                "id": "60d9f35e8a52085120891b19",
+                                                "name": "Johny Walker",
+                                                "email": "email@example.com",
+                                                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2I1YzllNzViNzQ3MjI2ZWVhNzRkZTkiLCJpYXQiOjE2NzI5MTE2MTJ9.dSa4UTEXImzOfvTCML1rOdWlRJk1H9mOtF_hciicBP8"
                                             }
                                         }
                                     }
@@ -211,36 +180,34 @@
                                 "schema": {
                                     "type": "object",
                                     "properties": {
-                                        "status": {
-                                            "type": "string",
-                                            "description": "responses status",
-                                            "example": "error"
-                                        },
-                                        "code": {
-                                            "type": "string",
-                                            "description": "responses code",
-                                            "example": "401"
-                                        },
                                         "message": {
                                             "type": "string",
                                             "description": "responses message",
-                                            "example": "Unauthorized"
+                                            "example": "Email or password is wrong"
                                         }
                                     }
                                 }
                             }
                         }
                     },
-                    "400": {
-                        "description": "Bad Request",
+                    "404": {
+                        "description": "User not Found",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Error 400"
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "responses message",
+                                            "example": "User not Found"
+                                        }
+                                    }
                                 }
                             }
                         }
                     },
+
                     "500": {
                         "description": "Iternal Server Error",
                         "content": {
@@ -266,20 +233,67 @@
                 "parameters": [],
                 "responses": {
                     "204": {
-                        "description": "Success"
-                    },
-                    "403": {
-                        "description": "Forbidden",
+                        "description": "Success",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Error 403"
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "responses message",
+                                            "example": "Success"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error 401"
+                                }
+                            }
+                        }
+                    },
+
+                    "TokenAuth": {
+                        "description": "Headers don't have Authorization",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TokenAuth"
+                                }
+                            }
+                        }
+                    },
+
+                    "WrongAuthType": {
+                        "description": "Invalid authorization type. Bearer is required",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WrongAuthType"
+                                }
+                            }
+                        }
+                    },
+                    "TokenMissing": {
+                        "description": "Please provide Bearer Token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TokenMissing"
                                 }
                             }
                         }
                     },
                     "500": {
                         "description": "Iternal Server Error",
+
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -312,12 +326,43 @@
                             }
                         }
                     },
-                    "403": {
-                        "description": "Forbidden",
+                    "401": {
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Error 403"
+                                    "$ref": "#/components/schemas/Error 401"
+                                }
+                            }
+                        }
+                    },
+                    "TokenAuth": {
+                        "description": "Headers don't have Authorization",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TokenAuth"
+                                }
+                            }
+                        }
+                    },
+
+                    "WrongAuthType": {
+                        "description": "Invalid authorization type. Bearer is required",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WrongAuthType"
+                                }
+                            }
+                        }
+                    },
+                    "TokenMissing": {
+                        "description": "Please provide Bearer Token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TokenMissing"
                                 }
                             }
                         }
@@ -336,32 +381,119 @@
             }
         },
         "/api/transactions": {
-            "get": {
+            "post": {
                 "tags": ["transactions"],
-                "summary": "GET all user transactions",
-                "parameters": [],
+                "summary": "Create New Transactions",
                 "security": [
                     {
                         "Bearer": []
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": ["date", "amount", "type"],
+                                "properties": {
+                                    "date": {
+                                        "type": "date",
+                                        "example": "1672567200000",
+                                        "description": "date in UNIX time format"
+                                    },
+                                    "category": {
+                                        "type": "string",
+                                        "example": "car",
+                                        "description": "category"
+                                    },
+                                    "comments": {
+                                        "type": "string",
+                                        "example": "first payment for car loan",
+                                        "description": "comments"
+                                    },
+                                    "amount": {
+                                        "type": "number",
+                                        "example": "1000",
+                                        "description": "amount"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "example": "expense",
+                                        "description": "type"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "Success",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Success Response"
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "description": "responses data",
+                                            "example": {
+                                                "transaction": {
+                                                    "owner": "63b429c545a864cd88d70d29",
+                                                    "type": "expense",
+                                                    "category": "home",
+                                                    "amount": "145.88",
+                                                    "date": "1672567200000",
+                                                    "actualBalance": "12390.22",
+                                                    "comments": "home rent",
+                                                    "_id": "63b6ad12e3c4984b3d29b62b",
+                                                    "createdAt": "2023-01-05T10:57:22.905Z",
+                                                    "updatedAt": "2023-01-05T10:57:22.905Z"
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
                     },
-                    "403": {
-                        "description": "Forbidden",
+                    "401": {
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Error 403"
+                                    "$ref": "#/components/schemas/Error 401"
+                                }
+                            }
+                        }
+                    },
+                    "TokenAuth": {
+                        "description": "Headers don't have Authorization",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TokenAuth"
+                                }
+                            }
+                        }
+                    },
+
+                    "WrongAuthType": {
+                        "description": "Invalid authorization type. Bearer is required",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WrongAuthType"
+                                }
+                            }
+                        }
+                    },
+                    "TokenMissing": {
+                        "description": "Please provide Bearer Token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TokenMissing"
                                 }
                             }
                         }
@@ -378,87 +510,64 @@
                     }
                 }
             },
-            "post": {
+            "get": {
                 "tags": ["transactions"],
-                "summary": "Create New Transactions",
+                "summary": "GET all user transactions",
+                "parameters": [
+                    {
+                        "pageParam": {
+                            "name": "page",
+                            "in": "query",
+                            "description": "number of pages to show",
+                            "schema": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "limitParam": {
+                            "name": "limit",
+                            "in": "query",
+                            "description": "max transactions to return",
+                            "schema": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        }
+                    }
+                ],
                 "security": [
                     {
                         "Bearer": []
                     }
                 ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "required": [
-                                    "date",
-                                    "category",
-                                    "amount",
-                                    "type"
-                                ],
-                                "properties": {
-                                    "date": {
-                                        "type": "number",
-                                        "example": "Sat Nov 13 2021 12:51:02",
-                                        "description": "date"
-                                    },
-                                    "category": {
-                                        "type": "string",
-                                        "example": "car",
-                                        "description": "category"
-                                    },
-                                    "comments": {
-                                        "type": "string",
-                                        "example": "first payment for car loan",
-                                        "description": "comments"
-                                    },
-                                    "amount": {
-                                        "type": "number",
-                                        "example": 1000,
-                                        "description": "amount"
-                                    },
-                                    "type": {
-                                        "type": "string",
-                                        "example": "expences",
-                                        "description": "type"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
+
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "Success",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "type": "object",
                                     "properties": {
-                                        "status": {
-                                            "type": "string",
-                                            "description": "responses status",
-                                            "example": "success"
-                                        },
-                                        "code": {
-                                            "type": "string",
-                                            "description": "responses code",
-                                            "example": "200"
-                                        },
                                         "data": {
                                             "type": "object",
                                             "description": "responses data",
                                             "example": {
-                                                "newOperation": {
-                                                    "date": "Sat Nov 13 2021 12:51:02",
-                                                    "type": "expences",
-                                                    "category": "car",
-                                                    "comments": "car loan",
-                                                    "amount": 1000,
-                                                    "balanceAfter": 5000
-                                                },
-                                                "totalBalance": 5000
+                                                "total": "11",
+                                                "page": "1",
+                                                "limit": "6",
+                                                "transactions": [
+                                                    {
+                                                        "_id": "63b6ad8426f385f8aa082e48",
+                                                        "type": "expense",
+                                                        "category": "home",
+                                                        "amount": "145.88",
+                                                        "date": "1672567200000",
+                                                        "actualBalance": "12244.34",
+                                                        "comments": "some text",
+                                                        "createdAt": "2023-01-05T10:59:16.481Z"
+                                                    }
+                                                ]
                                             }
                                         }
                                     }
@@ -466,12 +575,43 @@
                             }
                         }
                     },
-                    "403": {
-                        "description": "Forbidden",
+                    "401": {
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Error 403"
+                                    "$ref": "#/components/schemas/Error 401"
+                                }
+                            }
+                        }
+                    },
+                    "TokenAuth": {
+                        "description": "Headers don't have Authorization",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TokenAuth"
+                                }
+                            }
+                        }
+                    },
+
+                    "WrongAuthType": {
+                        "description": "Invalid authorization type. Bearer is required",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WrongAuthType"
+                                }
+                            }
+                        }
+                    },
+                    "TokenMissing": {
+                        "description": "Please provide Bearer Token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TokenMissing"
                                 }
                             }
                         }
@@ -489,10 +629,11 @@
                 }
             }
         },
+
         "/api/transactions/{month}/{year}": {
             "get": {
                 "tags": ["transactions"],
-                "summary": "Get statistic per month and year",
+                "summary": "Get statistics per month and year",
                 "security": [
                     {
                         "Bearer": []
@@ -526,38 +667,22 @@
                                 "schema": {
                                     "type": "object",
                                     "properties": {
-                                        "status": {
-                                            "type": "string",
-                                            "description": "responses status",
-                                            "example": "success"
-                                        },
-                                        "code": {
-                                            "type": "string",
-                                            "description": "responses code",
-                                            "example": "200"
-                                        },
-                                        "statistics": {
+                                        "data": {
                                             "type": "object",
-                                            "description": "responses data",
+                                            "description": "response data",
                                             "example": {
-                                                "monthlyStatistics": [
+                                                "incomeSum": "2091.50",
+                                                "expenseSum": "547.76",
+                                                "transactions": [
                                                     {
-                                                        "name": "car",
-                                                        "count": 2500
-                                                    },
-                                                    {
-                                                        "name": "house",
-                                                        "count": 5000
-                                                    }
-                                                ],
-                                                "incomeAndExpencesAmount": [
-                                                    {
-                                                        "name": "expences",
-                                                        "count": 2000
-                                                    },
-                                                    {
-                                                        "name": "income",
-                                                        "count": 5000
+                                                        "_id": "63b6ad8426f385f8aa082e48",
+                                                        "type": "expense",
+                                                        "category": "home",
+                                                        "amount": "145.88",
+                                                        "date": "1672567200000",
+                                                        "actualBalance": "12244.34",
+                                                        "comments": "some text",
+                                                        "createdAt": "2023-01-05T10:59:16.481Z"
                                                     }
                                                 ]
                                             }
@@ -567,16 +692,65 @@
                             }
                         }
                     },
-                    "403": {
-                        "description": "Forbidden",
+                    "400": {
+                        "description": "Bad Request",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Error 403"
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "responses message",
+                                            "example": "Invalid request parameters"
+                                        }
+                                    }
                                 }
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error 401"
+                                }
+                            }
+                        }
+                    },
+                    "TokenAuth": {
+                        "description": "Headers don't have Authorization",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TokenAuth"
+                                }
+                            }
+                        }
+                    },
+
+                    "WrongAuthType": {
+                        "description": "Invalid authorization type. Bearer is required",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WrongAuthType"
+                                }
+                            }
+                        }
+                    },
+                    "TokenMissing": {
+                        "description": "Please provide Bearer Token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TokenMissing"
+                                }
+                            }
+                        }
+                    },
+
                     "500": {
                         "description": "Iternal Server Error",
                         "content": {
@@ -608,141 +782,64 @@
                                 "schema": {
                                     "type": "object",
                                     "properties": {
-                                        "status": {
-                                            "type": "string",
-                                            "description": "responses status",
-                                            "example": "success"
-                                        },
-                                        "code": {
-                                            "type": "string",
-                                            "description": "responses code",
-                                            "example": "200"
-                                        },
                                         "data": {
-                                            "type": "object",
+                                            "type": "array",
                                             "description": "responses data",
-                                            "example": {
-                                                "categories": []
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Error 403"
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Iternal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Error 500"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": ["categories"],
-                "summary": "Create New Categories",
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "required": ["categories"],
-                                "properties": {
-                                    "category": {
-                                        "type": "string",
-                                        "example": "sallary",
-                                        "description": "categories"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "string",
-                                            "description": "responses status",
-                                            "example": "success"
-                                        },
-                                        "code": {
-                                            "type": "string",
-                                            "description": "responses code",
-                                            "example": "200"
-                                        },
-                                        "data": {
-                                            "type": "object",
-                                            "description": "responses data",
-                                            "example": {
-                                                "newCategory": {
-                                                    "_id": "60ecbdff1a167084f84a9736",
-                                                    "value": "New category"
+                                            "example": [
+                                                {
+                                                    "id": "1",
+                                                    "value": "main expences",
+                                                    "color": "#FED057"
+                                                },
+                                                {
+                                                    "id": "2",
+                                                    "value": "products",
+                                                    "color": "#FFD8D0"
                                                 }
-                                            }
+                                            ]
                                         }
                                     }
                                 }
                             }
                         }
                     },
-                    "403": {
-                        "description": "Forbidden",
+                    "401": {
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Error 403"
+                                    "$ref": "#/components/schemas/Error 401"
                                 }
                             }
                         }
                     },
-                    "409": {
-                        "description": "Conflict",
+                    "TokenAuth": {
+                        "description": "Headers don't have Authorization",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "string",
-                                            "description": "status",
-                                            "example": "error"
-                                        },
-                                        "code": {
-                                            "type": "string",
-                                            "description": "code",
-                                            "example": "409"
-                                        },
-                                        "message": {
-                                            "type": "string",
-                                            "description": "conflict",
-                                            "example": "This category already exist"
-                                        }
-                                    }
+                                    "$ref": "#/components/schemas/TokenAuth"
+                                }
+                            }
+                        }
+                    },
+
+                    "WrongAuthType": {
+                        "description": "Invalid authorization type. Bearer is required",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WrongAuthType"
+                                }
+                            }
+                        }
+                    },
+                    "TokenMissing": {
+                        "description": "Please provide Bearer Token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TokenMissing"
                                 }
                             }
                         }
@@ -767,16 +864,6 @@
                 "description": "success",
                 "type": "object",
                 "properties": {
-                    "status": {
-                        "type": "string",
-                        "description": "responses status",
-                        "example": "success"
-                    },
-                    "code": {
-                        "type": "string",
-                        "description": "responses code",
-                        "example": "200"
-                    },
                     "data": {
                         "type": "object",
                         "description": "responses data",
@@ -790,25 +877,14 @@
             "User Response": {
                 "type": "object",
                 "properties": {
-                    "status": {
-                        "type": "string",
-                        "description": "responses status",
-                        "example": "success"
-                    },
-                    "code": {
-                        "type": "string",
-                        "description": "responses code",
-                        "example": "200"
-                    },
                     "data": {
                         "type": "object",
                         "description": "responses data",
                         "example": {
-                            "user": {
-                                "name": "Johny Walker",
-                                "email": "user.email@mail.com",
-                                "subscription": "pro"
-                            }
+                            "id": "60d9f35e8a52085120891b19",
+                            "name": "Johny Walker",
+                            "email": "user.email@mail.com",
+                            "balance": "1500"
                         }
                     }
                 }
@@ -817,16 +893,6 @@
                 "description": "Bad Request",
                 "type": "object",
                 "properties": {
-                    "status": {
-                        "type": "string",
-                        "description": "responses status",
-                        "example": "error"
-                    },
-                    "code": {
-                        "type": "string",
-                        "description": "responses code",
-                        "example": "400"
-                    },
                     "message": {
                         "type": "string",
                         "description": "responses message",
@@ -834,20 +900,22 @@
                     }
                 }
             },
+            "Error 401": {
+                "description": "Unauthorized",
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "responses message",
+                        "example": "User is not authorized"
+                    }
+                }
+            },
+
             "Error 403": {
                 "description": "Forbidden",
                 "type": "object",
                 "properties": {
-                    "status": {
-                        "type": "string",
-                        "description": "responses status",
-                        "example": "error"
-                    },
-                    "code": {
-                        "type": "string",
-                        "description": "responses code",
-                        "example": "403"
-                    },
                     "message": {
                         "type": "string",
                         "description": "responses message",
@@ -859,16 +927,6 @@
                 "description": "Not Found",
                 "type": "object",
                 "properties": {
-                    "status": {
-                        "type": "string",
-                        "description": "responses status",
-                        "example": "error"
-                    },
-                    "code": {
-                        "type": "string",
-                        "description": "responses code",
-                        "example": "404"
-                    },
                     "message": {
                         "type": "string",
                         "description": "responses message",
@@ -880,25 +938,48 @@
                 "description": "Iternal Server Error",
                 "type": "object",
                 "properties": {
-                    "status": {
-                        "type": "string",
-                        "description": "responses status",
-                        "example": "fail"
-                    },
-                    "code": {
-                        "type": "string",
-                        "description": "responses code",
-                        "example": "500"
-                    },
                     "message": {
                         "type": "string",
                         "description": "responses message",
-                        "example": "User password is required"
+                        "example": "Iternal Server Error"
                     },
                     "data": {
                         "type": "string",
                         "description": "responses data",
                         "example": "Internal Server Found"
+                    }
+                }
+            },
+            "TokenAuth": {
+                "description": "Headers don't have Authorization",
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "responses message",
+                        "example": "Headers don't have Authorization. Please, provide Bearer token"
+                    }
+                }
+            },
+            "WrongAuthType": {
+                "description": "Invalid authorization type. Bearer is required",
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "responses message",
+                        "example": "Invalid authorization type. Bearer is required"
+                    }
+                }
+            },
+            "TokenMissing": {
+                "description": "Please provide Bearer Token",
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "responses message",
+                        "example": "Please provide Bearer Token"
                     }
                 }
             }

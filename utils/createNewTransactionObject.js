@@ -6,17 +6,12 @@ const createNewTransactionObject = (data, userId, balance) => {
             ? (balance + amount).toFixed(2)
             : (balance - amount).toFixed(2);
 
-    // const month = new Date(date).getMonth() + 1;
-    // const year = new Date(date).getFullYear();
-
     let newTransaction = {
         owner: userId,
         type,
         category,
         amount,
         date,
-        // month,
-        // year,
         actualBalance,
         comments,
     };

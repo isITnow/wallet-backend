@@ -520,7 +520,7 @@
                         "description": "number of pages to show",
                         "limit": "1",
                         "schema": {
-                            "type": "integer"
+                            "type": "number"
                         }
                     },
                     {
@@ -529,7 +529,7 @@
                         "description": "max transactions to return",
                         "limit": "5",
                         "schema": {
-                            "type": "string"
+                            "type": "number"
                         }
                     }
                 ],

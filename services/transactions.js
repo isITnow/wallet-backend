@@ -37,7 +37,11 @@ const getByDate = async (owner, from, to) => {
     const transactions = await Transaction.find({
         owner,
         date: { $gte: from, $lt: to },
-    });
+    })
+        .sort({
+            createdAt: -1,
+        })
+        .select({ __v: 0, owner: 0, updatedAt: 0 });
 
     let incomeSum = null;
     let expenseSum = null;

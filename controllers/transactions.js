@@ -42,7 +42,11 @@ const getAllTransactions = async (req, res) => {
 const getTransactionsByDate = async (req, res) => {
     const { _id } = req.user;
     const { month, year } = req.params;
-    const transactions = await getByDate(_id, month, year);
+
+    const dateFrom = Date.parse(new Date(year, month - 1));
+    const dateTo = Date.parse(new Date(year, month));
+
+    const transactions = await getByDate(_id, dateFrom, dateTo);
 
     res.status(200).json({
         data: {

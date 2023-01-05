@@ -23,10 +23,10 @@ const transaction = new Schema(
         //     default: Date.now,
         // },
 
-        month: { type: String },
-        year: { type: String },
+        // month: { type: String },
+        // year: { type: String },
         date: {
-            type: String,
+            type: Number,
             required: [true, 'transaction date is required'],
         },
         actualBalance: {

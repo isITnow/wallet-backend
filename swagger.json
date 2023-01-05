@@ -515,23 +515,21 @@
                 "summary": "GET all user transactions",
                 "parameters": [
                     {
-                        "pageParam": {
-                            "name": "page",
-                            "in": "query",
-                            "description": "number of pages to show",
-                            "schema": {
-                                "type": "integer",
-                                "format": "int32"
-                            }
-                        },
-                        "limitParam": {
-                            "name": "limit",
-                            "in": "query",
-                            "description": "max transactions to return",
-                            "schema": {
-                                "type": "integer",
-                                "format": "int32"
-                            }
+                        "name": "pageParam",
+                        "in": "query",
+                        "description": "number of pages to show",
+                        "limit": "1",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "limitTParam",
+                        "in": "query",
+                        "description": "max transactions to return",
+                        "limit": "5",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],

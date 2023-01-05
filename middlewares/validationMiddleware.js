@@ -11,7 +11,7 @@ module.exports = {
                 })
                 .required(),
             password: Joi.string()
-                .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
+                .pattern(new RegExp('^[a-zA-Z0-9]{6,16}$'))
                 .required(),
         });
         const validationResult = schema.validate(req.body);

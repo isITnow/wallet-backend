@@ -1,5 +1,5 @@
 const createNewTransactionObject = (data, userId, balance) => {
-    const { type, category = 'income', amount, date } = data;
+    const { type, category = 'income', amount, date, comments = '' } = data;
 
     let actualBalance =
         type === 'income'
@@ -18,6 +18,7 @@ const createNewTransactionObject = (data, userId, balance) => {
         // month,
         // year,
         actualBalance,
+        comments,
     };
 
     return newTransaction;

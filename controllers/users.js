@@ -10,7 +10,7 @@ const registerUser = async (req, res, next) => {
     const user = await register(name, email, password);
 
     if (!user) {
-        throw createError(409, 'Email in use');
+        throw createError(409, 'User with this email already exists');
     }
     res.status(201).json({
         data: {
@@ -70,7 +70,7 @@ const logoutUser = async (req, res, next) => {
 const currentUser = async (req, res) => {
     const balance = await getActualBalance(req.user._id);
     res.json({
-        user: {
+        data: {
             id: req.user._id,
             name: req.user.name,
             email: req.user.email,

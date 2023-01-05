@@ -36,7 +36,7 @@ const getByDate = async (owner, from, to) => {
 
     const transactions = await Transaction.find({
         owner,
-        date: { $gt: from, $lte: to },
+        date: { $gte: from, $lt: to },
     })
         .sort({
             createdAt: -1,

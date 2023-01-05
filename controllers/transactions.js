@@ -45,8 +45,8 @@ const getTransactionsByDate = async (req, res) => {
 
     const monthNum = new Date(year, month).getMonth();
     console.log('monthNum: ', monthNum);
-    const dateFrom = Date.parse(new Date(year, monthNum - 1));
-    const dateTo = Date.parse(new Date(year, monthNum));
+    const dateFrom = Date.parse(new Date(year, monthNum));
+    const dateTo = Date.parse(new Date(year, monthNum + 1));
 
     const transactions = await getByDate(_id, dateFrom, dateTo);
 

@@ -9,7 +9,7 @@ const create = async (data, owner) => {
 
 const getAll = async ({ owner, limit, skip }) => {
     const total = await Transaction.count({ owner });
-    const allTransactions = await Transaction.find({ owner })
+    const transactions = await Transaction.find({ owner })
         .sort({
             createdAt: -1,
         })
@@ -21,7 +21,7 @@ const getAll = async ({ owner, limit, skip }) => {
     //     return false;
     // }
 
-    return { allTransactions, total };
+    return { transactions, total };
 };
 
 const getByDate = async (owner, from, to) => {
@@ -48,9 +48,9 @@ const getByDate = async (owner, from, to) => {
     }
 
     return {
-        transactions,
         incomeSum,
         expenseSum,
+        transactions,
     };
 };
 

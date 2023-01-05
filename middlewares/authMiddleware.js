@@ -28,7 +28,7 @@ const authMiddleware = async (req, res, next) => {
 
         if (!checkUser) {
             return res.status(401).json({
-                message: 'Not authorized',
+                message: 'User is not authorized',
             });
         }
 
@@ -37,7 +37,7 @@ const authMiddleware = async (req, res, next) => {
 
         if (!user || !isSameToken) {
             return res.status(401).json({
-                message: 'Not authorized',
+                message: 'User is not authorized',
             });
         }
 

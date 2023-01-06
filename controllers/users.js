@@ -75,6 +75,7 @@ const currentUser = async (req, res) => {
             name: req.user.name,
             email: req.user.email,
             balance,
+            createdAt: req.user.createdAt,
         },
     });
 };

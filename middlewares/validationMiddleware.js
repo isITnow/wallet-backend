@@ -14,7 +14,7 @@ module.exports = {
             password: Joi.string()
                 .pattern(
                     new RegExp(
-                        '^(?=.*d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,12}$'
+                        '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,16}$'
                     )
                 )
                 .required(),
@@ -39,11 +39,7 @@ module.exports = {
                 )
                 .required(),
             password: Joi.string()
-                .pattern(
-                    new RegExp(
-                        '^(?=.*d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,12}$'
-                    )
-                )
+                .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
                 .required(),
         });
         const validationResult = schema.validate(req.body);

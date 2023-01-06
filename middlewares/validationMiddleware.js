@@ -6,12 +6,10 @@ module.exports = {
             name: Joi.string().min(1).max(12).required(),
             email: Joi.string()
                 .pattern(
-                    new RegExp('^(?:w+[-.])*w{2,63}@(?:w+[-.])*w+.w{2,4}$')
+                    new RegExp(
+                        "^[A-Za-z0-9_!#$%&'*+/=?`{|}~^.-]+@[A-Za-z0-9.-]+$"
+                    )
                 )
-                // .email({
-                //     minDomainSegments: 2,
-                //     tlds: { allow: ['com', 'net'] },
-                // })
                 .required(),
             password: Joi.string()
                 .pattern(
@@ -35,12 +33,10 @@ module.exports = {
         const schema = Joi.object({
             email: Joi.string()
                 .pattern(
-                    new RegExp('^(?:w+[-.])*w{2,63}@(?:w+[-.])*w+.w{2,4}$')
+                    new RegExp(
+                        "^[A-Za-z0-9_!#$%&'*+/=?`{|}~^.-]+@[A-Za-z0-9.-]+$"
+                    )
                 )
-                // .email({
-                //     minDomainSegments: 2,
-                //     tlds: { allow: ['com', 'net'] },
-                // })
                 .required(),
             password: Joi.string()
                 .pattern(

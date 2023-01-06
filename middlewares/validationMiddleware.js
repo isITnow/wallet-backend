@@ -34,13 +34,17 @@ module.exports = {
             email: Joi.string()
                 .pattern(
                     new RegExp(
-                        '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,16}$'
+                        "^[A-Za-z0-9_!#$%&'*+/=?`{|}~^.-]+@[A-Za-z0-9.-]+$"
                     )
                 )
                 .required(),
             password: Joi.string()
                 // TODO: change pattern
-                .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
+                .pattern(
+                    new RegExp(
+                        '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,16}$'
+                    )
+                )
                 .required(),
         });
         const validationResult = schema.validate(req.body);

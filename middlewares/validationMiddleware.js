@@ -39,6 +39,7 @@ module.exports = {
                 )
                 .required(),
             password: Joi.string()
+                // TODO: change pattern
                 .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
                 .required(),
         });

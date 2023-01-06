@@ -457,6 +457,17 @@
                             }
                         }
                     },
+                    "400": {
+                        "description": "Bad Request",
+                        "type": "object",
+                        "properties": {
+                            "message": {
+                                "type": "string",
+                                "description": "responses message",
+                                "example": "Unavailable to create transaction with future date"
+                            }
+                        }
+                    },
                     "401": {
                         "description": "Unauthorized",
                         "content": {
@@ -700,7 +711,7 @@
                                         "message": {
                                             "type": "string",
                                             "description": "responses message",
-                                            "example": "Invalid request parameters"
+                                            "example": "Invalid request parameters / Unavailable to get transactions with future date"
                                         }
                                     }
                                 }
@@ -882,7 +893,8 @@
                             "id": "60d9f35e8a52085120891b19",
                             "name": "Johny Walker",
                             "email": "user.email@mail.com",
-                            "balance": "1500"
+                            "balance": "1500",
+                            "createdAt": "2023-01-03T13:12:37.745Z"
                         }
                     }
                 }

@@ -26,26 +26,21 @@ const categories = [
     },
     {
         id: 6,
-        value: 'Child care',
-        color: '#6E78E8',
-    },
-    {
-        id: 7,
         value: 'Household products',
         color: '#4A56E2',
     },
     {
-        id: 8,
+        id: 7,
         value: 'Education',
         color: '#81E1FF',
     },
     {
-        id: 9,
+        id: 8,
         value: 'Leisure',
         color: '#24CCA7',
     },
     {
-        id: 10,
+        id: 9,
         value: 'Other expenses',
         color: '#00AD84',
     },

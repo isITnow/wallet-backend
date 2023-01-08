@@ -8,12 +8,21 @@ const createTransaction = async (req, res) => {
     const { _id } = req.user;
     const balance = await getActualBalance(_id);
     const newTransaction = createNewTransactionObject(req.body, _id, balance);
-    if (!newTransaction) {
-        throw createError(
-            400,
-            'Unavailable to create transaction with future date'
-        );
+    // if (newTransaction === 'invalid date') {
+    //     throw createError(
+    //         400,
+    //         'Unavailable to create transaction with future date'
+    //     );
+    // }
+
+    // if (newTransaction === 'invalid amount') {
+    //     throw createError(400, 'Invalid amount');
+    // }
+
+    if (typeof newTransaction === 'string') {
+        throw createError(400, newTransaction);
     }
+
     const transaction = await create(newTransaction, _id);
 
     res.status(201).json({

@@ -1,47 +1,47 @@
 const categories = [
     {
         id: 1,
-        value: 'Main expenses',
+        value: 'main expenses',
         color: '#FED057',
     },
     {
         id: 2,
-        value: 'Products',
+        value: 'products',
         color: '#FFD8D0',
     },
     {
         id: 3,
-        value: 'Car',
+        value: 'car',
         color: '#FD9498',
     },
     {
         id: 4,
-        value: 'Self care',
+        value: 'self care',
         color: '#C5BAFF',
     },
     {
         id: 5,
-        value: 'Child care',
+        value: 'child care',
         color: '#6E78E8',
     },
     {
         id: 6,
-        value: 'Household products',
+        value: 'household products',
         color: '#4A56E2',
     },
     {
         id: 7,
-        value: 'Education',
+        value: 'education',
         color: '#81E1FF',
     },
     {
         id: 8,
-        value: 'Leisure',
+        value: 'leisure',
         color: '#24CCA7',
     },
     {
         id: 9,
-        value: 'Other expenses',
+        value: 'other expenses',
         color: '#00AD84',
     },
 ];

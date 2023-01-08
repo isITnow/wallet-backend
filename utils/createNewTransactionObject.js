@@ -16,7 +16,7 @@ const createNewTransactionObject = (data, userId, balance) => {
     const isInvalidDate = date >= tomorrowZeroHours;
 
     if (!isAvailableCategory) {
-        return `Unavailable category: ${category}`;
+        return `Unavailable category: ${category}. Visit https://wallet-api-kaqj.onrender.com/api/categories to get list of available categories`;
     }
 
     if (isInvalidAmount) {

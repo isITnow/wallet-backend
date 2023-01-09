@@ -1,11 +1,21 @@
 const Transaction = require('../schemas/transaction.js');
 
-const getActualBalance = async owner => {
-    const lastRecord = await Transaction.find({ owner })
-        .sort({ createdAt: -1 })
+const getUserActualBalance = async (owner, dateTo) => {
+    const lastRecord = await Transaction.find({
+        owner,
+        date: {
+            $lte: dateTo,
+        },
+    })
+        .sort({
+            date: -1,
+            createdAt: -1,
+        })
         .limit(1);
+
     const balance = lastRecord[0]?.actualBalance || 0;
+
     return balance;
 };
 
-module.exports = getActualBalance;
+module.exports = getUserActualBalance;

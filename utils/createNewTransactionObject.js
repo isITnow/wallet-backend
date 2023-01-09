@@ -1,8 +1,10 @@
+const moment = require('moment/moment.js');
 const checkCategory = require('./checkCategory.js');
 
 const createNewTransactionObject = (data, userId, balance) => {
     const { type, category, amount, date, comments = '' } = data;
 
+    const isValidDate = moment(date).isValid();
     const [_, afterDecimal] = amount.toString().split('.');
     const isInvalidAmount = afterDecimal?.length > 2;
 
@@ -14,6 +16,10 @@ const createNewTransactionObject = (data, userId, balance) => {
     const tomorrow = today.setDate(today.getDate() + 1);
     const tomorrowZeroHours = new Date(tomorrow).setHours(0, 0, 0, 0);
     const isInvalidDate = date >= tomorrowZeroHours;
+
+    if (!isValidDate) {
+        return 'Invalid date'
+    }
 
     if (!isAvailableCategory) {
         return `Unavailable category: ${category}. Visit https://wallet-api-kaqj.onrender.com/api/categories to get list of available categories`;

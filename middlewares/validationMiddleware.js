@@ -5,7 +5,11 @@ module.exports = {
         const schema = Joi.object({
             name: Joi.string().min(1).max(12).required(),
             email: Joi.string()
-                .pattern(new RegExp('^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,4})+$'))
+                .pattern(
+                    new RegExp(
+                        '^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,4})+$'
+                    )
+                )
                 .required(),
             password: Joi.string()
                 .pattern(
@@ -30,12 +34,11 @@ module.exports = {
             email: Joi.string()
                 .pattern(
                     new RegExp(
-                        "^[A-Za-z0-9_!#$%&'*+/=?`{|}~^.-]+@[A-Za-z0-9.-]+$"
+                        '^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,4})+$'
                     )
                 )
                 .required(),
             password: Joi.string()
-                // TODO: change pattern
                 .pattern(
                     new RegExp(
                         '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,16}$'

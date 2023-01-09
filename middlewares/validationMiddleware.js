@@ -61,7 +61,7 @@ module.exports = {
             amount: Joi.number().required(),
             type: Joi.any().valid('income', 'expense').required(),
             category: Joi.string(),
-            comments: Joi.string(),
+            comments: Joi.string().max(15),
         });
         const validationResult = schema.validate(req.body);
 

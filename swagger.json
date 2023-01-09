@@ -399,7 +399,7 @@
                                     "date": {
                                         "type": "date",
                                         "example": "1672567200000",
-                                        "description": "date in milliseconds"
+                                        "description": "date format: milliseconds"
                                     },
                                     "category": {
                                         "type": "string",

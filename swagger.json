@@ -399,7 +399,7 @@
                                     "date": {
                                         "type": "date",
                                         "example": "1672567200000",
-                                        "description": "date in UNIX time format"
+                                        "description": "date in milliseconds"
                                     },
                                     "category": {
                                         "type": "string",

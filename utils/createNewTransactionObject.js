@@ -29,8 +29,8 @@ const createNewTransactionObject = (data, userId, balance) => {
 
     let actualBalance =
         type === 'income'
-            ? (balance + amount).toFixed(2)
-            : (balance - amount).toFixed(2);
+            ? (balance + Math.abs(amount)).toFixed(2)
+            : (balance - Math.abs(amount)).toFixed(2);
 
     let newTransaction = {
         owner: userId,

@@ -1,23 +1,18 @@
 const { create, getAll, getByDate } = require('../services/transactions.js');
 const createNewTransactionObject = require('../utils/createNewTransactionObject.js');
-const getActualBalance = require('../utils/getUserActualBalance.js');
+const getUserActualBalance = require('../utils/getUserActualBalance.js');
 const createError = require('../utils/createError.js');
+const updateFurtherBalanceRecords = require('../utils/updateFurtherBalanceRecords.js');
 // const Transaction = require('../schemas/transaction.js');
 
 const createTransaction = async (req, res) => {
     const { _id } = req.user;
-    const balance = await getActualBalance(_id);
-    const newTransaction = createNewTransactionObject(req.body, _id, balance);
-    // if (newTransaction === 'invalid date') {
-    //     throw createError(
-    //         400,
-    //         'Unavailable to create transaction with future date'
-    //     );
-    // }
+    const { amount, date, type } = req.body;
 
-    // if (newTransaction === 'invalid amount') {
-    //     throw createError(400, 'Invalid amount');
-    // }
+    await updateFurtherBalanceRecords(_id, date, amount, type);
+
+    const balance = await getUserActualBalance(_id, date);
+    const newTransaction = createNewTransactionObject(req.body, _id, balance);
 
     if (typeof newTransaction === 'string') {
         throw createError(400, newTransaction);

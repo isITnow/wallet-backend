@@ -1,5 +1,6 @@
 const moment = require('moment/moment.js');
 const checkCategory = require('./checkCategory.js');
+const countActualBalance = require('./countActualBalance.js');
 
 const createNewTransactionObject = (data, userId, balance) => {
     const { type, category, amount, date, comments = '' } = data;
@@ -18,7 +19,7 @@ const createNewTransactionObject = (data, userId, balance) => {
     const isInvalidDate = date >= tomorrowZeroHours;
 
     if (!isValidDate) {
-        return 'Invalid date'
+        return 'Invalid date';
     }
 
     if (!isAvailableCategory) {
@@ -33,10 +34,7 @@ const createNewTransactionObject = (data, userId, balance) => {
         return 'Unavailable to create transaction with future date';
     }
 
-    let actualBalance =
-        type === 'income'
-            ? (balance + Math.abs(amount)).toFixed(2)
-            : (balance - Math.abs(amount)).toFixed(2);
+    let actualBalance = countActualBalance(amount, balance, type);
 
     let newTransaction = {
         owner: userId,

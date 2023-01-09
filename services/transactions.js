@@ -11,15 +11,12 @@ const getAll = async ({ owner, limit, skip }) => {
     const total = await Transaction.count({ owner });
     const transactions = await Transaction.find({ owner })
         .sort({
+            date: -1,
             createdAt: -1,
         })
         .select({ __v: 0, owner: 0, updatedAt: 0 })
         .skip(skip)
         .limit(limit);
-
-    // if (!allTransactions) {
-    //     return false;
-    // }
 
     return { transactions, total };
 };

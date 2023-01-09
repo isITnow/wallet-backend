@@ -773,7 +773,7 @@
                 }
             }
         },
-        "/api/categoriess": {
+        "/api/categories": {
             "get": {
                 "tags": ["categories"],
                 "summary": "Get All User Categories",

@@ -3,7 +3,7 @@
     "info": {
         "title": "WalletAPI",
         "description": "This is the Fullstack BC24 group's final project, based on the OpenAPI 3.0 specification.",
-        "version": "1.0.1"
+        "version": "1.0.2"
     },
     "consumens": ["application/json"],
     "produces": ["application/json"],
@@ -43,13 +43,13 @@
                                 "properties": {
                                     "email": {
                                         "type": "string",
-                                        "example": "some email",
+                                        "example": "email_1@example.com",
                                         "description": "Email"
                                     },
                                     "password": {
                                         "type": "string",
-                                        "example": "qwerty123",
-                                        "description": "Password"
+                                        "example": "Qwerty123!",
+                                        "description": "password"
                                     },
                                     "name": {
                                         "type": "string",
@@ -75,7 +75,7 @@
                                             "example": {
                                                 "id": "60d9f35e8a52085120891b19",
                                                 "name": "Johny Walker",
-                                                "email": "example@email.com"
+                                                "email": "example_1@email.com"
                                             }
                                         }
                                     }
@@ -137,12 +137,12 @@
                                 "properties": {
                                     "password": {
                                         "type": "string",
-                                        "example": "qwerty123",
+                                        "example": "Qwerty123!",
                                         "description": "password"
                                     },
                                     "email": {
                                         "type": "string",
-                                        "example": "email@example.com",
+                                        "example": "email_1@example.com",
                                         "description": "email"
                                     }
                                 }
@@ -164,7 +164,8 @@
                                             "example": {
                                                 "id": "60d9f35e8a52085120891b19",
                                                 "name": "Johny Walker",
-                                                "email": "email@example.com",
+                                                "email": "email_1@example.com",
+
                                                 "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2I1YzllNzViNzQ3MjI2ZWVhNzRkZTkiLCJpYXQiOjE2NzI5MTE2MTJ9.dSa4UTEXImzOfvTCML1rOdWlRJk1H9mOtF_hciicBP8"
                                             }
                                         }
@@ -573,8 +574,107 @@
                                                         "amount": "145.88",
                                                         "date": "1672567200000",
                                                         "actualBalance": "12244.34",
-                                                        "comments": "some text",
+                                                        "comments": "rent-145.88",
                                                         "createdAt": "2023-01-05T10:59:16.481Z"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error 401"
+                                }
+                            }
+                        }
+                    },
+                    "TokenAuth": {
+                        "description": "Headers don't have Authorization",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TokenAuth"
+                                }
+                            }
+                        }
+                    },
+
+                    "WrongAuthType": {
+                        "description": "Invalid authorization type. Bearer is required",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WrongAuthType"
+                                }
+                            }
+                        }
+                    },
+                    "TokenMissing": {
+                        "description": "Please provide Bearer Token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TokenMissing"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Iternal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error 500"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/api/transactions/dates": {
+            "get": {
+                "tags": ["transactions"],
+                "summary": "GET dates of all user's transactions",
+                "parameters": [],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "description": "responses data",
+                                            "example": {
+                                                "dates": [
+                                                    {
+                                                        "_id": "63bd46abf37a0ec6610f66fc",
+                                                        "date": 1673348761849
+                                                    },
+                                                    {
+                                                        "_id": "63bd46bef37a0ec6610f6701",
+                                                        "date": 1673348794095
+                                                    },
+                                                    {
+                                                        "_id": "63bd46c6f37a0ec6610f6706",
+                                                        "date": 1673348801250
                                                     }
                                                 ]
                                             }
@@ -690,7 +790,7 @@
                                                         "amount": "145.88",
                                                         "date": "1672567200000",
                                                         "actualBalance": "12244.34",
-                                                        "comments": "some text",
+                                                        "comments": "rent- 145.88",
                                                         "createdAt": "2023-01-05T10:59:16.481Z"
                                                     }
                                                 ]

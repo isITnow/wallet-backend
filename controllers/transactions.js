@@ -1,4 +1,9 @@
-const { create, getAll, getByDate } = require('../services/transactions.js');
+const {
+    create,
+    getAll,
+    getByDate,
+    getDates,
+} = require('../services/transactions.js');
 const createNewTransactionObject = require('../utils/createNewTransactionObject.js');
 const getUserActualBalance = require('../utils/getUserActualBalance.js');
 const createError = require('../utils/createError.js');
@@ -81,8 +86,21 @@ const getTransactionsByDate = async (req, res) => {
     });
 };
 
+const getTransactionsDates = async (req, res) => {
+    const { _id } = req.user;
+
+    const dates = await getDates(_id);
+    console.log('dates: ', dates);
+    res.status(200).json({
+        data: {
+            dates,
+        },
+    });
+};
+
 module.exports = {
     createTransaction,
     getAllTransactions,
     getTransactionsByDate,
+    getTransactionsDates,
 };

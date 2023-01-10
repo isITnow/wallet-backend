@@ -526,7 +526,7 @@
                 "summary": "GET all user transactions",
                 "parameters": [
                     {
-                        "name": "pageParam",
+                        "name": "page",
                         "in": "query",
                         "description": "number of pages to show",
                         "limit": "1",
@@ -535,7 +535,7 @@
                         }
                     },
                     {
-                        "name": "limitTParam",
+                        "name": "limit",
                         "in": "query",
                         "description": "max transactions to return",
                         "limit": "5",

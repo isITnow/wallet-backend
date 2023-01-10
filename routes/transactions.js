@@ -3,6 +3,7 @@ const {
     createTransaction,
     getAllTransactions,
     getTransactionsByDate,
+    getTransactionsDates,
 } = require('../controllers/transactions.js');
 const {
     addTransactionValidation,
@@ -16,5 +17,6 @@ router.use(authMiddleware);
 router.post('/', addTransactionValidation, asyncWrapper(createTransaction));
 router.get('/', asyncWrapper(getAllTransactions));
 router.get('/:month/:year', asyncWrapper(getTransactionsByDate));
+router.get('/dates', asyncWrapper(getTransactionsDates));
 
 module.exports = { transactionsRouter: router };

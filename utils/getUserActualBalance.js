@@ -1,6 +1,6 @@
 const Transaction = require('../schemas/transaction.js');
 
-const getUserActualBalance = async (owner, dateTo) => {
+const getUserActualBalance = async (owner, dateTo = Date.now()) => {
     const lastRecord = await Transaction.find({
         owner,
         date: {

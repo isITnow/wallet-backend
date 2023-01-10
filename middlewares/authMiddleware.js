@@ -33,7 +33,7 @@ const authMiddleware = async (req, res, next) => {
         }
 
         const user = await User.findById(checkUser._id);
-        const isSameToken = token === user.token;
+        const isSameToken = token === user?.token;
 
         if (!user || !isSameToken) {
             return res.status(401).json({

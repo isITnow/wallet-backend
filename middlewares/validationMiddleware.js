@@ -7,7 +7,7 @@ module.exports = {
             email: Joi.string()
                 .pattern(
                     new RegExp(
-                        '^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,4})+$'
+                        '^(\\w+([\\.-]?\\w+)*){2,63}@\\w+([\\.-]?\\w+)*(\\.\\w{2,4})+$'
                     )
                 )
                 .required(),
@@ -34,7 +34,7 @@ module.exports = {
             email: Joi.string()
                 .pattern(
                     new RegExp(
-                        '^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,4})+$'
+                        '^(\\w+([\\.-]?\\w+)*){2,63}@\\w+([\\.-]?\\w+)*(\\.\\w{2,4})+$'
                     )
                 )
                 .required(),

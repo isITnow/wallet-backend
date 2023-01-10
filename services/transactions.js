@@ -51,6 +51,10 @@ const getByDate = async (owner, from, to) => {
     };
 };
 
+const getDates = async owner => {
+    return Transaction.find({ owner }).select({ date: 1 });
+};
+
 const aggregateSum = (owner, from, to, type) => {
     return Transaction.aggregate([
         {
@@ -79,4 +83,5 @@ module.exports = {
     create,
     getAll,
     getByDate,
+    getDates,
 };

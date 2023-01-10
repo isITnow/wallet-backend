@@ -58,9 +58,7 @@ module.exports = {
 
     addTransactionValidation: (req, res, next) => {
         const schema = Joi.object({
-            // TODO: add date validation (date format)
-
-            date: Joi.date().required(),
+            date: Joi.number().required(),
             amount: Joi.number().required(),
             type: Joi.any().valid('income', 'expense').required(),
             category: Joi.string(),

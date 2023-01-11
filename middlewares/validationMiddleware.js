@@ -5,6 +5,12 @@ module.exports = {
         const schema = Joi.object({
             name: Joi.string().min(1).max(12).required(),
             email: Joi.string()
+                .email({
+                    minDomainSegments: 2,
+                    maxDomainSegments: 4,
+                    tlds: { allow: ['com', 'net', 'org', 'ua'] },
+                    ignoreLength: false,
+                })
                 .pattern(
                     new RegExp(
                         '^(\\w+([\\.-]?\\w+)*){2,63}@\\w+([\\.-]?\\w+)*(\\.\\w{2,4})+$'
@@ -32,6 +38,12 @@ module.exports = {
     loginUserValidation: (req, res, next) => {
         const schema = Joi.object({
             email: Joi.string()
+                .email({
+                    minDomainSegments: 2,
+                    maxDomainSegments: 4,
+                    tlds: { allow: ['com', 'net', 'org', 'ua'] },
+                    ignoreLength: false,
+                })
                 .pattern(
                     new RegExp(
                         '^(\\w+([\\.-]?\\w+)*){2,63}@\\w+([\\.-]?\\w+)*(\\.\\w{2,4})+$'

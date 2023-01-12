@@ -38,9 +38,9 @@ module.exports = {
 
     getAllTransactions: async (req, res) => {
         const { _id } = req.user;
-        let { limit = 5, page = 1 } = req.query;
+        let { limit = 6, page = 1 } = req.query;
 
-        limit = parseInt(limit) > 10 ? 10 : parseInt(limit);
+        limit = parseInt(limit) > 20 ? 20 : parseInt(limit);
         page = parseInt(page) < 1 ? 1 : parseInt(page);
 
         let skip = (page - 1) * limit;

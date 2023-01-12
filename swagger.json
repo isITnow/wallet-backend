@@ -529,7 +529,7 @@
                     {
                         "name": "page",
                         "in": "query",
-                        "description": "number of pages to show",
+                        "description": "number of pages to show. default is 1",
                         "limit": "1",
                         "schema": {
                             "type": "number"
@@ -538,7 +538,7 @@
                     {
                         "name": "limit",
                         "in": "query",
-                        "description": "max transactions to return",
+                        "description": "max transactions to return. default is 6, max is 20",
                         "limit": "5",
                         "schema": {
                             "type": "number"

@@ -18,13 +18,6 @@ const transaction = new Schema(
             type: Number,
             required: [true, 'amount is required'],
         },
-        // date: {
-        //     type: Date,
-        //     default: Date.now,
-        // },
-
-        // month: { type: String },
-        // year: { type: String },
         date: {
             type: Number,
             required: [true, 'transaction date is required'],

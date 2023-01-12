@@ -23,11 +23,6 @@ module.exports = {
     },
 
     logout: async id => {
-        // const user = await User.findById(id);
-
-        // if (!user) {
-        //     return false;
-        // }
         return await User.findByIdAndUpdate(id, { token: null }, { new: true });
     },
 };

@@ -8,7 +8,6 @@ const createNewTransactionObject = require('../utils/createNewTransactionObject.
 const getUserActualBalance = require('../utils/getUserActualBalance.js');
 const createError = require('../utils/createError.js');
 const updateFurtherBalanceRecords = require('../utils/updateFurtherBalanceRecords.js');
-// const Transaction = require('../schemas/transaction.js');
 
 module.exports = {
     createTransaction: async (req, res) => {
